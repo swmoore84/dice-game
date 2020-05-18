@@ -13,6 +13,7 @@ const init = () => {
   scores = [0, 0];
   activePlayer = 0;
   roundScore = 0;
+  gamePlaying = true;
 
   document.querySelector('.dice').style.display = 'none';
 
@@ -34,40 +35,46 @@ let scores, roundScore, activePlayer, gamePlaying;
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function(){
-  let dice = Math.floor(Math.random() * 6) + 1;
 
-  let diceDOM = document.querySelector('.dice')
+  if(gamePlaying){
+    let dice = Math.floor(Math.random() * 6) + 1;
 
-  diceDOM.style.display = 'block';
-  diceDOM.src = 'dice-' + dice + '.png';
+    let diceDOM = document.querySelector('.dice')
 
-  if (dice > 1) {
-    roundScore += dice;
-    document.querySelector('#current-' + activePlayer).innerText = roundScore;
-    // add score
-  } else {
-    // next player
-    nextPlayer();
+    diceDOM.style.display = 'block';
+    diceDOM.src = 'dice-' + dice + '.png';
+
+    if (dice > 1) {
+      roundScore += dice;
+      document.querySelector('#current-' + activePlayer).innerText = roundScore;
+      // add score
+    } else {
+      // next player
+      nextPlayer();
+    }
   }
 });
 
 
 document.querySelector('.btn-hold').addEventListener('click', function(){
-  scores[activePlayer] += roundScore;
+  if (gamePlaying){
+    scores[activePlayer] += roundScore;
 
-  document.querySelector('#score-' + activePlayer).innerText = scores[activePlayer];
+    document.querySelector('#score-' + activePlayer).innerText = scores[activePlayer];
 
-  if (scores[activePlayer] >= 10) {
-    document.querySelector('#name-' + activePlayer).innerText = 'WINNER!';
-    document.querySelector('.dice').style.display = 'none';
-    document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
-    document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
-  }
-  else {
+    if (scores[activePlayer] >= 10) {
+      document.querySelector('#name-' + activePlayer).innerText = 'WINNER!';
+      document.querySelector('.dice').style.display = 'none';
+      document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+      document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+      gamePlaying = false;
+    }
+    else {
+      nextPlayer();
+    }
+
     nextPlayer();
   }
-
-  nextPlayer();
 });
 
 const nextPlayer = () => {
