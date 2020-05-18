@@ -9,9 +9,9 @@ GAME RULES:
 
 */
 
-const scores = [0, 0];
-const roundScore = 0;
-const activePlayer = 0;
+let scores = [0, 0];
+let roundScore = 0;
+let activePlayer = 0;
 
 
 document.querySelector('.dice').style.display = 'none';
@@ -22,12 +22,21 @@ document.getElementById('current-0').innerText = '0'
 document.getElementById('current-1').innerText = '0'
 
 document.querySelector('.btn-roll').addEventListener('click', function(){
-  const dice = Math.floor(Math.random() * 6) + 1;
+  let dice = Math.floor(Math.random() * 6) + 1;
 
-  const diceDOM = document.querySelector('.dice')
+  let diceDOM = document.querySelector('.dice')
 
   diceDOM.style.display = 'block';
   diceDOM.src = 'dice-' + dice + '.png';
+
+  if (dice > 1) {
+    roundScore += dice;
+    document.querySelector('#current-' + activePlayer).innerText = roundScore;
+    // add score
+  } else {
+    // next player
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+  }
 });
 
 
