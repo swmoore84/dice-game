@@ -45,6 +45,16 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
 
   document.querySelector('#score-' + activePlayer).innerText = scores[activePlayer];
 
+  if (scores[activePlayer] >= 10) {
+    document.querySelector('#name-' + activePlayer).innerText = 'WINNER!';
+    document.querySelector('.dice').style.display = 'none';
+    document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+    document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+  }
+  else {
+    nextPlayer();
+  }
+
   nextPlayer();
 });
 
