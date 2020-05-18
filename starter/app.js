@@ -14,9 +14,12 @@ const roundScore = 0;
 const activePlayer = 0;
 
 
-
-
 document.querySelector('.dice').style.display = 'none';
+
+document.getElementById('score-0').innerText = '0'
+document.getElementById('score-1').innerText = '0'
+document.getElementById('current-0').innerText = '0'
+document.getElementById('current-1').innerText = '0'
 
 document.querySelector('.btn-roll').addEventListener('click', function(){
   const dice = Math.floor(Math.random() * 6) + 1;
